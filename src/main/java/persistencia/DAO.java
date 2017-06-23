@@ -6,6 +6,7 @@
 package persistencia;
 
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 /**
@@ -17,11 +18,12 @@ import javax.persistence.EntityManager;
 public class DAO <T,I>{
     
     private Class<T> classe;
+    @Inject
     private EntityManager entityManager;
 
-    public DAO(Class<T> classe, EntityManager entityManager) {
+    public DAO(Class<T> classe) {
         this.classe = classe;
-        this.entityManager = entityManager;
+        
     }
     
     public void salvar(T t){
