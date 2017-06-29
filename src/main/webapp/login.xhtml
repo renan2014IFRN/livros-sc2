@@ -17,16 +17,27 @@
         </ui:define>
         
         <ui:define name="conteudo">
+            <p:messages globalOnly="true"/>
             <p:fieldset legend="Login">
+                <h:form>
                 <p:panelGrid columns="3">
                     <h:outputLabel value="Email" for="email"/>
-                    <p:inputText value="" id="email"/>
+                    <p:inputText value="#{loginBean.usuario.email}" id="email">
+                       <!-- <f:validateLength minimum="3" maximum="20"/> -->
+                       <!--<f:validateRegex pattern="^[\w][\w\.]+@\w+\.{1}[\w+\.?]*[\w]+$"/> -->
+                    </p:inputText>
                     <p:message for="email"/>
                     
                     <p:outputLabel value="Senha"/>
-                    <p:password id="feedback" value="" feedback="true" />
+                    <p:password id="feedback" value="#{loginBean.usuario.senha}" feedback="true" />
                     <p:message for="feedback"/>
             </p:panelGrid>
+                   <!-- <p:commandButton value="" action="">
+                        <f:ajax execute="" render="@form"/>
+                    </p:commandButton>
+                   -->
+                   <p:commandButton value="login" icon="fa-sign-in" action="#{loginBean.realizarLogin()}" process="@form" update="@form"/>
+                </h:form>
             </p:fieldset>
         </ui:define>
     </ui:composition>

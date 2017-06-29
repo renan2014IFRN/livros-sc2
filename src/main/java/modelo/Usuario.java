@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  *
@@ -24,7 +26,10 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "usuario_seq", sequenceName = "usuario_seq", allocationSize = 1)
     private Integer id;
+    @NotNull(message = "Email não pode ser vazio")
+    @Pattern(regexp = "^[\\w][\\w\\.]+@\\w+\\.{1}[\\w+\\.?]*[\\w]+$", message = "Email inválido")
     private String email;
+
     private String senha;
 
     public Integer getId() {
