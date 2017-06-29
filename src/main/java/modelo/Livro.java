@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +30,7 @@ public class Livro implements Serializable{
     private String titulo;
     private String descricao;
     private String ISBN;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER) // Desativando o modo Lazy
     private List<Autor> autores;
 
     public Integer getId() {

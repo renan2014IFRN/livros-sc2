@@ -27,7 +27,7 @@ public class Autor implements Serializable {
     private Integer id;
     private String nome;
     private String biografia;
-
+    
     public Integer getId() {
         return id;
     }
