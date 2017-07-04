@@ -6,9 +6,12 @@
 package beans;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import modelo.Usuario;
+import persistencia.UsuarioDAO;
 
 /**
  *
@@ -21,8 +24,23 @@ public class LoginBean {
     @Inject
     private Usuario usuario;
     
-    public void realizarLogin() {
-        
+    @Inject
+    private UsuarioDAO usuarioDAO;
+    
+    @Inject
+    private FacesContext context;
+    
+    public String realizarLogin() {
+        boolean retorno = usuarioDAO.existeUsuario(usuario);
+        if (retorno){
+            context.getExternalContext().getSessionMap().put("usuario_logado", usuario);
+            context.getExternalContext().getFlash().setKeepMessages(true);
+            context.addMessage("",new FacesMessage("Login realizado com sucesso"));
+            return "/principal,xhtml?face-redirect=true";
+        }else{
+            context.addMessage("", new FacesMessage("Falha no login"));
+            return "/login.xhtml";
+        }
     }
 
     public Usuario getUsuario() {
