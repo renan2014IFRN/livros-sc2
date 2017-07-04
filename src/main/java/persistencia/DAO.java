@@ -21,6 +21,11 @@ public class DAO <T,I>{
     @Inject
     private EntityManager entityManager;
 
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+
     public DAO(Class<T> classe) {
         this.classe = classe;
         
