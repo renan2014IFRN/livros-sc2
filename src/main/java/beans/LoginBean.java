@@ -34,11 +34,11 @@ public class LoginBean {
         
         if (usuarioDAO.existeUsuario(usuario)){
             context.getExternalContext().getSessionMap().put("usuario_logado", usuario);
-            return "/principal,xhtml?face-redirect=true";
+            return "/principal.xhtml?faces-redirect=true";
         }else{
             context.getExternalContext().getFlash().setKeepMessages(true);
             context.addMessage(null, new FacesMessage("Falha no login"));
-            return "/login.xhtml?face-redirect=true";
+            return "/login.xhtml?faces-redirect=true";
         }
     }
 
