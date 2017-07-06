@@ -31,15 +31,14 @@ public class LoginBean {
     private FacesContext context;
     
     public String realizarLogin() {
-        boolean retorno = usuarioDAO.existeUsuario(usuario);
-        if (retorno){
+        
+        if (usuarioDAO.existeUsuario(usuario)){
             context.getExternalContext().getSessionMap().put("usuario_logado", usuario);
-            context.getExternalContext().getFlash().setKeepMessages(true);
-            context.addMessage("",new FacesMessage("Login realizado com sucesso"));
             return "/principal,xhtml?face-redirect=true";
         }else{
-            context.addMessage("", new FacesMessage("Falha no login"));
-            return "/login.xhtml";
+            context.getExternalContext().getFlash().setKeepMessages(true);
+            context.addMessage(null, new FacesMessage("Falha no login"));
+            return "/login.xhtml?face-redirect=true";
         }
     }
 
