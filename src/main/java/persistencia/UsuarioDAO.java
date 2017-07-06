@@ -5,6 +5,7 @@
  */
 package persistencia;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import modelo.Usuario;
@@ -20,12 +21,16 @@ public class UsuarioDAO extends DAO<Usuario,Integer>{
     }
     
     public boolean existeUsuario(Usuario usuario){
-        String jpql = "select u from Usuario where u.email = :pemail and u.senha = :psenha";    
+        String jpql = "select u from Usuario u where u.email = :pemail and u.senha = :psenha";    
         Query query = getEntityManager().createQuery(jpql, Usuario.class);
         query.setParameter("pemail", usuario.getEmail());
         query.setParameter("psenha", usuario.getSenha());
-        Usuario usuarioConsulta = (Usuario) query.getSingleResult();
-        return usuarioConsulta != null;
+        try{
+            query.getSingleResult();
+            return true;
+        }catch(NoResultException exp) {
+            return false;
+        }
     }
     
 }
